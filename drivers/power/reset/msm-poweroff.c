@@ -336,6 +336,8 @@ static void msm_restart_prepare(char mode, const char *cmd)
 
 	if (in_panic) {
 		/* KP, do not overwrite the restart reason */
+		qpnp_pon_set_restart_reason(PON_RESTART_REASON_REBOOT);
+		__raw_writel(0x77665501, restart_reason);
 	} else if (cmd != NULL) {
 		if (!strncmp(cmd, "bootloader", 10)) {
 			qpnp_pon_set_restart_reason(
